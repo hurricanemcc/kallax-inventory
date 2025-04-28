@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Kallax Inventory</title>
+<style>
+  .grid { 
+    display: grid; 
+    grid-template-columns: repeat(3, 1fr); 
+    gap: 2px; /* Use gap to separate boxes */
+    max-width: 800px; 
+    margin: 0 auto; 
+    padding-top: 50px;
+  }
+  .box { 
+    width: 300px; /* Fixed width */
+    height: 300px; /* Fixed height */
+    text-align: center; 
+    cursor: pointer; 
+    color: white; 
+    border: 5px solid black; /* Adjust border thickness */
+    box-sizing: border-box; /* Include border in element's total width and height */
+    font-size: 18px; /* Increase font size */
+    font-weight: bold; /* Make text bold */
+    font-family: Verdana, sans-serif; /* Set font family */
+    display: flex; /* Use flexbox for centering */
+    align-items: center; /* Center vertically */
+    justify-content: center; /* Center horizontally */
+  }
+  .box1 { background-color: #ababab; } 
+  .box2 { background-color: #cf2424; } 
+  .box3 { background-color: #303030; } 
+  .box4 { background-color: #cf2424; } 
+  .box5 { background-color: #303030; } 
+  .box6 { background-color: #ababab; }
+  .box7 { background-color: #ababab; } 
+  .box8 { background-color: #cf2424; }
+  .box9 { background-color: #303030; } 
+  .box10 { background-color: #cf2424; } 
+  .box11 { background-color: #303030; } 
+  .box12 { background-color: #ababab; } 
+  .box:hover {
+    box-shadow: 0 10px 8px rgba(0, 0, 0, 1);
+  }
+</style>
+<script>
+function showContents(box) {
+  const contents = {
+    1: "Box A: Electronics General: Plugs, Charging cable, Firesticks, gaming accessories.",
+    2: "Box B: Electronics Hobby: Circuit Boards, Wires, Soldering Irons",
+    3: "Box C: VR Case and Accessories.",
+    4: "Box D: 3D Printer: Tools and accessories.",
+    5: "Box E: 3D Printer: Filament",
+    6: "Box F: Phone, Watch, Audio Accessories.",
+    7: "Box G: Art Supplies: Alcohol Markers/ Pencils",
+    8: "Box H: Art Supplies: Watercolours/ Guache",
+    9: "Box I: Empty",
+    10: "Box J: Drawing Pads",
+    11: "Box K: Empty",
+    12: "Box L: Empty",
+  };
+  alert(contents[box] || "Nothing here yet. Maybe it's just empty hope.");
+}
+</script>
+</head>
+<body>
+<div class="grid">
+  <button class="box box1" onclick="showContents(1)">General Electronics</button>
+  <button class="box box2" onclick="showContents(2)">Hobby Electronics</button>
+  <button class="box box3" onclick="showContents(3)">VR Case / VR Accessories</button>
+  <button class="box box4" onclick="showContents(4)">3D Printing Tools</button>
+  <button class="box box5" onclick="showContents(5)">3D Printing Filament</button>
+  <button class="box box6" onclick="showContents(6)">Phone/ Watch Accessories</button>
+  <button class="box box7" onclick="showContents(7)">Art Supplies: Alcohol Markers/ Pencils</button>
+  <button class="box box8" onclick="showContents(8)">Art Supplies: Watercolours/ Guache</button>
+  <button class="box box9" onclick="showContents(9)">Empty</button>
+  <button class="box box10" onclick="showContents(10)">Drawing Pads</button>
+  <button class="box box11" onclick="showContents(11)">Empty</button>
+  <button class="box box12" onclick="showContents(12)">Empty</button>
+</div>
+</body>
+</html>
