@@ -62,18 +62,18 @@
 function initializeContents() {
   if (!localStorage.getItem('boxContents')) {
     const initialContents = {
-      1: "Plugs, Charging cable, Firesticks, gaming accessories.",
-      2: "Circuit Boards, Wires, Soldering Irons",
-      3: "VR Case and Accessories.",
-      4: "Tools and accessories.",
-      5: "Filament",
-      6: "Phone, Watch, Audio Accessories.",
-      7: "Alcohol Markers/ Pencils",
-      8: "Watercolours/ Guache",
-      9: "Empty",
-      10: "Drawing Pads",
-      11: "Empty",
-      12: "Empty",
+      1: { label: "General Electronics", items: ["Plugs", "Charging cable", "Firesticks", "Gaming accessories"] },
+      2: { label: "Hobby Electronics", items: ["Circuit Boards", "Wires", "Soldering Irons"] },
+      3: { label: "VR Case / VR Accessories", items: ["VR Case", "Accessories"] },
+      4: { label: "3D Printing Tools", items: ["Tools", "Accessories"] },
+      5: { label: "3D Printing Filament", items: ["Filament"] },
+      6: { label: "Phone/ Watch Accessories", items: ["Phone", "Watch", "Audio Accessories"] },
+      7: { label: "Art Supplies: Alcohol Markers/ Pencils", items: ["Alcohol Markers", "Pencils"] },
+      8: { label: "Art Supplies: Watercolours/ Guache", items: ["Watercolours", "Guache"] },
+      9: { label: "Empty", items: [] },
+      10: { label: "Drawing Pads", items: ["Drawing Pads"] },
+      11: { label: "Empty", items: [] },
+      12: { label: "Empty", items: [] },
     };
     localStorage.setItem('boxContents', JSON.stringify(initialContents));
   }
@@ -82,12 +82,15 @@ function initializeContents() {
 function showContents(box) {
   const contents = JSON.parse(localStorage.getItem('boxContents'));
   const contentDisplay = document.getElementById('content-display');
+  const itemsList = contents[box].items.map(item => `<li>${item}</li>`).join('');
   contentDisplay.innerHTML = `
     <h2>Box ${box}</h2>
-    <p>${contents[box]}</p>
+    <input type="text" id="boxLabel" value="${contents[box].label}" placeholder="Edit box label">
+    <ul>${itemsList}</ul>
     <input type="text" id="newItem" placeholder="Add new item">
     <button onclick="addItem(${box})">Add Item</button>
-    <button onclick="removeItem(${box})">Remove Item</button>
+    <button onclick="removeItem(${box})">Remove Last Item</button>
+    <button onclick="updateLabel(${box})">Update Label</button>
   `;
 }
 
@@ -95,7 +98,7 @@ function addItem(box) {
   const newItem = document.getElementById('newItem').value;
   if (newItem) {
     const contents = JSON.parse(localStorage.getItem('boxContents'));
-    contents[box] += `, ${newItem}`;
+    contents[box].items.push(newItem);
     localStorage.setItem('boxContents', JSON.stringify(contents));
     showContents(box);
   }
@@ -103,11 +106,20 @@ function addItem(box) {
 
 function removeItem(box) {
   const contents = JSON.parse(localStorage.getItem('boxContents'));
-  const items = contents[box].split(', ');
-  items.pop(); // Remove last item
-  contents[box] = items.join(', ');
+  contents[box].items.pop(); // Remove last item
   localStorage.setItem('boxContents', JSON.stringify(contents));
   showContents(box);
+}
+
+function updateLabel(box) {
+  const newLabel = document.getElementById('boxLabel').value;
+  if (newLabel) {
+    const contents = JSON.parse(localStorage.getItem('boxContents'));
+    contents[box].label = newLabel;
+    localStorage.setItem('boxContents', JSON.stringify(contents));
+    showContents(box);
+    document.querySelector(`.box${box}`).textContent = newLabel; // Update the box label on the grid
+  }
 }
 
 window.onload = initializeContents;
